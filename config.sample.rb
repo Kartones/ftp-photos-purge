@@ -2,6 +2,7 @@
 
 DRY_RUN = true
 DAYS_TO_KEEP = 30
+FILE_EXTENSION_FILTER = "php"
 FTP_DEBUG_MODE = false
 FTP_HOST = ""
 FTP_USERNAME = nil
