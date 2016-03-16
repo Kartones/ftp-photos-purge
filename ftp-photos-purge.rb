@@ -17,9 +17,11 @@ class FTPPhotosPurge
 		ftp.chdir(WORKING_FOLDER) unless WORKING_FOLDER.nil?
 		ftp.list("*") do |file|
 			next unless (/\.#{FILE_EXTENSION_FILTER}$/ =~ file).nil?
+			next unless (/\.#{FILE_EXTENSION_ADDITIONAL_FILTER}$/ =~ file).nil?
+			puts "> Found file '#{file}'" if FTP_DEBUG_MODE
 
 			file_date = Date.strptime(file.slice(0,8), '%m-%d-%y')
-			if (max_allowed_date.to_time.to_i - file_date.to_time.to_i > 0)
+			if (max_allowed_date.to_time.to_i - file_date.to_time.to_i >= 0)
 				file_name = file.slice(39,file.length)
 				puts "Deleting file #{file_name}"
 				 unless DRY_RUN
